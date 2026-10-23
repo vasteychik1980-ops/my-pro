@@ -1,0 +1,20 @@
+name: Build PSP Homebrew
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Compile using PSPDev
+      uses: pspdev/pspdev-action@v1
+      with:
+        arguments: make
+
+    - name: Upload EBOOT.PBP
+      uses: actions/upload-artifact@v4
+      with:
+        name: PSP-Intro-EBOOT
+        path: EBOOT.PBP
